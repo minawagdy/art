@@ -43,6 +43,7 @@ class IndexController extends Controller
         $results = DB::table('categories as c')
         ->leftJoin('products as p', 'c.id', '=', 'p.category_id')
         ->leftJoin('order_products as op', 'p.id', '=', 'op.product_id')
+        ->whereIn('c.country', [session()->get('country')->id])
         ->groupBy('c.id', 'c.title_en', 'p.id', 'p.title')
         ->select('c.id as category_id', 'c.title_en as category_title', 'p.id as product_id', 'p.title as product_title', DB::raw('SUM(op.count) as total_orders'))
         ->orderBy('category_id')
