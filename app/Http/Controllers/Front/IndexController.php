@@ -31,25 +31,26 @@ class IndexController extends Controller
         //     });
         // }])->where('published',1)->get();
 
-        $category       = Category::where('published',1)->limit(1)->get();
+        $category       = Category::where('published',1)->get();
 
 
         $categories = $category->filter(function ($row)  {
             return in_array(session()->get('country')->id, json_decode($row->country));
         });
 
-//         $categories  = DB::table('categories as c')
-//     ->select('c.id as category_id', 'c.name as category_name', 'p.id as product_id', 'p.name as product_name')
-//     ->join('products as p', 'c.id', '=', 'p.category_id')
-//     ->join('order_products as op', 'p.id', '=', 'op.product_id')
-//     ->selectRaw('ROW_NUMBER() OVER (PARTITION BY c.id ORDER BY SUM(op.count) DESC) as row_num')
-//     ->groupBy('c.id', 'p.id', 'p.name')
-//     ->havingRaw('row_num <= 10')
-//     ->orderBy('c.id')
-//     ->orderByDesc(DB::raw('SUM(op.count)'))
-//     ->get();
-        
-// dd($categories);
+
+
+        $results = DB::table('categories as c')
+        ->leftJoin('products as p', 'c.id', '=', 'p.category_id')
+        ->leftJoin('order_products as op', 'p.id', '=', 'op.product_id')
+        ->groupBy('c.id', 'c.title_en', 'p.id', 'p.title')
+        ->select('c.id as category_id', 'c.title_en as category_title', 'p.id as product_id', 'p.title as product_title', DB::raw('SUM(op.count) as total_orders'))
+        ->orderBy('category_id')
+        ->orderByDesc('total_orders')
+        ->get();
+
+return $results;
+dd($results);
 
         $lastProducts = Product::whereHas('provider', function($q){
             $q->where('country', session()->get('country')->id)->where('published',1)->where('status',1);

@@ -16,19 +16,6 @@
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
     </div>
     </div>
-
-    <div class="category-tabs">
-    @foreach($categories as $category)
-        <div class="tab" data-category-id="{{ $category->id }}">{{ $category->title_en }}</div>
-    @endforeach
-</div>
-
-<div class="product-container">
-    mmmmmmmmmmmmm
-    <!-- Products will be displayed here -->
-</div>
-
-
     <div class="dt-sc-sorting-container">
     <a style="margin-top:10px;" data-filter="*" href="#" title="09" class="dt-sc-tooltip-top active-sort type1 dt-sc-button animate" data-animation="fadeIn" data-delay="100">All</a>
     @foreach ($categories as $category )
@@ -38,10 +25,8 @@
     <div class="portfolio-fullwidth">
     <div class="portfolio-grid">
     <div class="dt-sc-portfolio-container isotope"> 
-        @foreach($categories as $category)
-        @foreach($category->products as $products)
-
-    <div class="{{$category->title_en}} portfolio people isotope-item dt-sc-one-fourth">
+        @foreach($results as $category)
+    <div class="{{$category->category_title}} portfolio people isotope-item dt-sc-one-fourth">
       
     <figure>
     <img src="{{asset(@$products->images[0]->image_name)}}" alt title>
@@ -61,7 +46,6 @@
     </figcaption>
     </figure>
     </div>
-    @endforeach
     @endforeach
     </div>
     </div>
@@ -181,38 +165,5 @@
     </div>
     </div>
     <div class="dt-sc-hr-invisible-small"></div>
-
-
-  
-
     </section>
 @endsection
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('.tab').click(function () {
-            var categoryId = $(this).data('category-id');
-
-            // Send AJAX request to fetch products with the selected category
-            $.ajax({
-                headers: {
-                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                         },
-                url: '{{ route("products.byCategory") }}',
-                type: 'POST',
-                data: {categoryId: categoryId},
-                success: function (response) {
-                    // Hide all products
-                    $('.product').hide();
-
-                    // Show only products with the selected category
-                    $.each(response, function (index, product) {
-                        $('.product[data-category-id="' + product.category_id + '"]').show();
-                    });
-                }
-            });
-        });
-    });
-</script>
