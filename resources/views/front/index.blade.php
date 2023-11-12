@@ -12,24 +12,26 @@
     <div class="fullwidth-section"> 
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
-    <h2 class="aligncenter"> Portfolio </h2>
+    <h2 class="aligncenter"> BEST SELLERS</h2>
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
     </div>
     </div>
+
     <div class="dt-sc-sorting-container">
     <a style="margin-top:10px;" data-filter="*" href="#" title="09" class="dt-sc-tooltip-top active-sort type1 dt-sc-button animate" data-animation="fadeIn" data-delay="100">All</a>
     @foreach ($categories as $category )
-    <a style="margin-top:10px;" data-filter=".{{$category->title_en}}" href="#" title="{{$category->title_en}}" class="dt-sc-tooltip-top type1 dt-sc-button animate" data-animation="fadeIn" data-delay="200">{{$category->title_en}}</a>
+    <a style="margin-top:10px;" data-filter=".{{$category->id}}" href="#" title="{{$category->title_en}}" class="dt-sc-tooltip-top type1 dt-sc-button animate" data-animation="fadeIn" data-delay="200">{{$category->title_en}}</a>
     @endforeach
     </div>
     <div class="portfolio-fullwidth">
     <div class="portfolio-grid">
     <div class="dt-sc-portfolio-container isotope"> 
-        @foreach($results as $category)
-    <div class="{{$category->category_title}} portfolio people isotope-item dt-sc-one-fourth">
+        @foreach($categories as $category)
+        @foreach($category->products as $products)
+      <div class= "portfolio {{$category->id}} still-life dt-sc-one-fourth isotope-item">
       
     <figure>
-    <img src="{{asset(@$products->images[0]->image_name)}}" alt title>
+    <img src="{{asset(@$products->images[0]->image_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title>
     <figcaption>
     <div class="portfolio-detail">
         @foreach ($products->images as $images)
@@ -46,6 +48,7 @@
     </figcaption>
     </figure>
     </div>
+    @endforeach
     @endforeach
     </div>
     </div>
@@ -88,7 +91,7 @@
     <div style="margin-top: 50px;" class="fullwidth-section">
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
-    <h2 class="aligncenter"> Best Sellers </h2>
+    <h2 class="aligncenter"> Artists </h2>
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
     </div>
     </div>
@@ -96,13 +99,15 @@
     <div class="frame-thumb">
     <div class="frame-fullwidth">
     <div class="dt-sc-frame-container isotope"> 
-        @foreach($orders as $order)
+        @foreach($randomArtists as $randomArtist)
         
     <div class="frame ceramic dt-sc-one-third">
+
     <figure>
-    <img src="{{asset($order->images[0]->image_name)}}" alt title>
+   <img src="{{asset($randomArtist->profile_img)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title="{{$randomArtist->name}}">
     </figure>
     </div>
+    
     @endforeach
     
     </div>
@@ -165,5 +170,10 @@
     </div>
     </div>
     <div class="dt-sc-hr-invisible-small"></div>
+
+
+  
+
     </section>
 @endsection
+

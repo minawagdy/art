@@ -14,6 +14,8 @@ use App\Http\Controllers\Vendor\VendorAuthController;
 
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\VendorController;
+use App\Http\Controllers\Front\GalleryController;
+
 use App\Models\Countries;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Administration\SliderController;
@@ -281,6 +283,8 @@ Route::get('/category/1', [IndexController::class, 'getCategory'])->name('catego
 Route::post('/wishlist',[IndexController::class, 'toggle'])->name('wishlist.toggle');
 Route::get('/allProviders',[VendorController::class, 'index'])->name('allvendors');
 Route::post('/products', [IndexController::class,'getProductsByCategory'])->name('products.byCategory');
+Route::get('/gallery', [GalleryController::class,'index'])->name('gallery.index');
+Route::get('/load-more-data', [GalleryController::class,'loadMoreData'])->name('load.more');
 
 // Route::get('/', function () {
 //     return view('welcome');

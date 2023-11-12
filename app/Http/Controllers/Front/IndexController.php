@@ -16,6 +16,7 @@ use App\Models\Category;
 use App\Models\Slider;
 use App\Models\ProductPrice;
 use App\Models\ProviderAd;
+use App\Models\Provider;
 use Carbon\Carbon;
 use DB;
 
@@ -31,26 +32,97 @@ class IndexController extends Controller
         //     });
         // }])->where('published',1)->get();
 
-        $category       = Category::where('published',1)->get();
+        // $category       = Category::where('published',1)->get();
 
 
-        $categories = $category->filter(function ($row)  {
-            return in_array(session()->get('country')->id, json_decode($row->country));
-        });
+        // $categories = $category->filter(function ($row)  {
+        //     return in_array(session()->get('country')->id, json_decode($row->country));
+        // });
 
 
+        // $countryIds = session()->get('country')->id; // Assuming this returns an array of country IDs
+        // $results = DB::table('categories as c')
+        // ->leftJoin('products as p', 'c.id', '=', 'p.category_id')
+        // ->leftJoin('order_products as op', 'p.id', '=', 'op.product_id')
+        // ->where('c.published',1)
+        // ->where('p.is_active',1)
+        // // ->where(in_array(session()->get('country')->id, json_decode('c.country')))
+        // ->groupBy('c.id', 'c.title_en', 'p.id', 'p.title')
+        // ->select('c.id as category_id', 'c.title_en as category_title', 'p.id as product_id', 'p.title as product_title', DB::raw('SUM(op.count) as total_orders'))
+        // ->orderBy('category_id')
+        // ->orderByDesc('total_orders')
+        // ->get();
 
-        $results = DB::table('categories as c')
-        ->leftJoin('products as p', 'c.id', '=', 'p.category_id')
-        ->leftJoin('order_products as op', 'p.id', '=', 'op.product_id')
-        ->groupBy('c.id', 'c.title_en', 'p.id', 'p.title')
-        ->select('c.id as category_id', 'c.title_en as category_title', 'p.id as product_id', 'p.title as product_title', DB::raw('SUM(op.count) as total_orders'))
-        ->orderBy('category_id')
-        ->orderByDesc('total_orders')
-        ->get();
 
-return $results;
-dd($results);
+// $categories = $categories = Category::with(['products' => function ($query) {
+//     $query->where('is_active', 1)->take(10);
+// }, 'products.images' => function ($query) {
+//     $query->select('imageable_id', 'image_name')->first();
+// }, 'products.orderProducts' => function ($query) {
+//     // Assuming 'published' is a column in the 'order_products' table
+//     // $query->where('published', 1);
+// }])
+// ->where('published', 1)
+// // ->where('country', session()->get('country')->id)
+// ->orderByDesc(function ($query) {
+//     $query->selectRaw('SUM(order_products.count)')
+//           ->from('order_products');
+//         //   ->whereColumn('order_products.product_id', 'products.id');
+// })
+// // ->orderBy('id')
+// ->get();
+
+// dd($categories);
+
+// $results = DB::table('categories as c')
+// ->leftJoin('products as p', 'c.id', '=', 'p.category_id')
+// ->leftJoin('order_products as op', 'p.id', '=', 'op.product_id')
+// // ->whereIn('c.country', [session()->get('country')->id])
+// ->groupBy('c.id', 'c.title_en', 'p.id', 'p.title')
+// ->select('c.id as category_id', 'c.title_en as category_title', 'p.id as product_id', 'p.title as product_title', DB::raw('SUM(op.count) as total_orders'))
+// ->orderBy('category_id')
+// ->orderByDesc('total_orders')
+// ->get();
+// dd($results);
+
+$categories = Category::with(['products' => function ($query) {
+    $query->where('is_active', 1)
+          ->with('images')
+          ->with('orderProducts')
+          ->select('products.*')
+          ->orderByDesc(DB::raw('(SELECT SUM(order_products.count) FROM order_products WHERE order_products.product_id = products.id)'))
+          ->take(10);
+}])
+
+->where('published', 1)
+->get();
+
+// return $categories;
+// ->where('country', session()->get('country')->id)
+
+// ->orderBy('category_id')
+
+
+// dd($categories);
+    
+
+        // $categories = Category::with(['products' => function ($query) {
+        //     $query->select('id', 'title', 'category_id')
+        //           ->withSum('orderproducts', 'count'); // Retrieve the sum of counts from order_products
+        //         //   ->orderByDesc('order_products_sum_count'); // Order by the sum in descending order
+        // }])
+        // ->where('published', 1)
+        // // ->orderByDesc('products_sum_count') // Order the categories by the sum of counts from products
+        // ->get();
+    
+        //             dd($categories);
+
+        // $c= $results->filter(function ($row)  {
+        //     return in_array(session()->get('country')->id, json_decode($row->country));
+        // });
+
+        // $rawSql = $query->toSql();
+
 
         $lastProducts = Product::whereHas('provider', function($q){
             $q->where('country', session()->get('country')->id)->where('published',1)->where('status',1);
@@ -65,6 +137,8 @@ dd($results);
         ->groupBy('products.id','products.title')
         ->orderByDesc(DB::raw('SUM(order_products.count)'))
         ->take(5)->get();
+
+
 
     //     $sliders         = Slider::where('published',1)->get();
     //     $allCategories   = Category::where('published',1)->get();
@@ -120,7 +194,10 @@ dd($results);
             //         $q->where([['is_active',1],['offer_end_date','>=', Carbon::today()],['offer_price','!=', null]]);
             //  })->get();
         //   dd($ofers_products);
-        return view('front.index',compact('categories','lastProducts','orders'));
+
+        $randomArtists = Provider::inRandomOrder()->where('published',1)->where('status',1)->where('country',session()->get('country')->id)->take(3)->get();
+
+        return view('front.index',compact('categories','lastProducts','randomArtists'));
     }
 
     public function getCategory($category)
