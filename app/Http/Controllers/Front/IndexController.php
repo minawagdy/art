@@ -32,11 +32,7 @@ class IndexController extends Controller
         //     });
         // }])->where('published',1)->get();
 
-<<<<<<< HEAD
         // $category       = Category::where('published',1)->get();
-=======
-        $category       = Category::where('published',1)->get();
->>>>>>> ee01c0eb1c66a6f543708fee129a06607ce5aadb
 
 
         // $categories = $category->filter(function ($row)  {
