@@ -10,10 +10,6 @@ class ArtistController extends Controller
 {
     public function index ($id){
 
-        $validatedData = $request->validate([
-            'rating' => 'required|numeric|min:1|max:5',
-            'comment' => 'nullable|string|max:255',
-        ]);
         
          $artist = Provider::with('products')->find($id);
          $maxOrderedProduct = $artist->products()
@@ -26,6 +22,11 @@ class ArtistController extends Controller
 
    // Save Comment
    public function save_comment(Request $request){
+    
+    $validatedData = $request->validate([
+        'rating' => 'required|numeric|min:1|max:5',
+        'comment' => 'nullable|string|max:255',
+    ]);
     $comments = ProviderReview::where('provider_id',$request->post)->where('user_id',$request->user_id)->first();
     if(!$comments){
     $data=new \App\Models\ProviderReview;
