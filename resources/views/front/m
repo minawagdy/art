@@ -1,0 +1,51 @@
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var start = 5;
+
+    $('#load_more_button').click(function() {
+        $.ajax({
+            url: "{{ route('load.more') }}",
+            method: "GET",
+            data: {
+                start: start
+            },
+            dataType: "json",
+            beforeSend: function() {
+                $('#load_more_button').html('Loading...');
+                $('#load_more_button').attr('disabled', true);
+            },
+            success: function(data) {
+                if (data.data.length > 0) {
+                    var html = '';
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += `<div class="col-md-4 content_box">
+                                    <div>
+                                        <h2>` + data.data[i].title + `</h2>
+                                        <p>` + data.data[i].description + `</p>
+                                    </div>
+                                </div>`;
+                    }
+                    //console.log(html);
+                    //append data  without fade in effect
+                    //$('#items_container').append(html);
+
+                    //append data with fade in effect
+                    $('#items_container').append($(html).hide().fadeIn(1000));
+                    $('#load_more_button').html('Load More');
+                    $('#load_more_button').attr('disabled', false);
+                    start = data.next;
+                } else {
+                    $('#load_more_button').html('No More Data Available');
+                    $('#load_more_button').attr('disabled', true);
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+
+</html> --}}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class GalleryController extends Controller
 {
@@ -20,8 +21,19 @@ class GalleryController extends Controller
         // ->where('published', 1)
         // ->get();
 
-        $categories=product::paginate(5);
-        return view('front.gallery', compact('categories'));
+        
+        $category       = Category::where('published',1)->get();
+
+        $categories = $category->filter(function ($row)  {
+            return in_array(session()->get('country')->id, json_decode($row->country));
+        });
+
+        // $products=Product::take(5)->get();
+        $products = Product::paginate(5);
+
+        // paginate(5);
+// dd($products);
+        return view('front.gallery', compact('products','categories'));
 
     
     }

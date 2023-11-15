@@ -15,13 +15,14 @@ use App\Http\Controllers\Vendor\VendorAuthController;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\VendorController;
 use App\Http\Controllers\Front\GalleryController;
+use App\Http\Controllers\Front\ItemController;
+use App\Http\Controllers\Front\ArtistController;
 
 use App\Models\Countries;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Administration\SliderController;
 
 use App\Http\Controllers\admin\SettingController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -285,7 +286,9 @@ Route::get('/allProviders',[VendorController::class, 'index'])->name('allvendors
 Route::post('/products', [IndexController::class,'getProductsByCategory'])->name('products.byCategory');
 Route::get('/gallery', [GalleryController::class,'index'])->name('gallery.index');
 Route::get('/load-more-data', [GalleryController::class,'loadMoreData'])->name('load.more');
-
+Route::get('/item/{id}', [ItemController::class,'index']);
+Route::get('/artist/{id}', [ArtistController::class,'index']);
+Route::post('/save-comment', [ArtistController::class, 'save_comment'])->name('save-comment');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

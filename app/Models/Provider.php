@@ -141,6 +141,19 @@ class Provider extends Authenticatable {
     //     return 	$countryObj->name_ar;
     // }
 
+    public function getAvgRateAttribute()
+    {
+
+        if ($this) {
+            if($this->reviews()->count() > 0){
+                return round( ((float) $this->reviews()->sum('rate') / $this->reviews()->count()) ,2);
+            }else{
+                return 0;
+            }
+        }
+    }
+
+
     public static function boot() {
         parent::boot();
 

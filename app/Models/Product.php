@@ -57,24 +57,26 @@ class Product extends BaseModel {
         return $value;
     }
 
-    // public function getMainImageAttribute()
-    // {
-    //     if (@$this->images) {
-    //         return @$this->images[0]->image_name;
-    //     }
-    // }
+    
 
-    public function getMainImageAttribute($value)
+    public function getMainImageAttribute()
     {
-        // if($value != null){
-        // return asset('/storage/product_images/' . $value);
-        // }else{
-            // return @$this->images[0]->image_name;
-            //  return asset(@$this->images[0]->image_name);
-            return  @$this->images[0]->image_name;
-            //  return asset( @$this->images[0]->image_name);
-        // }
-    } // end of get image attribute
+        if (@$this->images) {
+            return @$this->images[0]->image_name;
+        }
+    }
+
+    // public function getMainImageAttribute($value)
+    // {
+    //     // if($value != null){
+    //     // return asset('/storage/product_images/' . $value);
+    //     // }else{
+    //         // return @$this->images[0]->image_name;
+    //         //  return asset(@$this->images[0]->image_name);
+    //         return  @$this->images[0]->image_name;
+    //         //  return asset( @$this->images[0]->image_name);
+    //     // }
+    // } // end of get image attribute
 
 
     public function getAvgRateAttribute()

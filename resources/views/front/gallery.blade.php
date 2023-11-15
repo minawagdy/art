@@ -1,3 +1,6 @@
+@extends('front.layouts.main')
+
+@section('content')
 
 <div class="breadcrumb">
 <div class="container">
@@ -23,267 +26,125 @@
 </div>
 </div>
 <div class="dt-sc-sorting-container">
-<a data-filter="*" href="#" title="09" class="dt-sc-tooltip-top active-sort type1 dt-sc-button">All</a>
-<a data-filter=".nature" href="#" title="06" class="dt-sc-tooltip-top type1 dt-sc-button">Nature</a>
-<a data-filter=".people" href="#" title="06" class="dt-sc-tooltip-top type1 dt-sc-button">People</a>
-<a data-filter=".street" href="#" title="05" class="dt-sc-tooltip-top type1 dt-sc-button">Street</a>
-<a data-filter=".still-life" href="#" title="08" class="dt-sc-tooltip-top type1 dt-sc-button">Still life</a>
-</div>
-<div class="portfolio-fullwidth">
-<div class="portfolio-grid">
-<div class="dt-sc-portfolio-container isotope"> 
-<div class="portfolio nature still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-1.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-1.jpg"></a><span>3</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail.html">Proposing Love</a></h5>
-<p>Sample text here looks good</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio nature people street dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-2.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-2.jpg"></a><span>7</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail-with-lhs.html">Brave Man</a></h5>
-<p>A cowboy is a man with guts</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio street landscapes still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-3.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-3.jpg"></a><span>9</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail-with-rhs.html">Mountain Ride</a></h5>
-<p>the swagger of a cowboy</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio nature still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-4.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-4.jpg"></a><span>5</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail.html">River Ride</a></h5>
-<p>Live Free, Ride Hard!!</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio people still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-5.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-5.jpg"></a><span>6</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail-with-lhs.html">Ride Hard</a></h5>
-<p>Saddle your horse</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio people still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-6.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-6.jpg"></a><span>1</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail-with-rhs.html">Black Rider</a></h5>
-<p>No reason to ride a horse</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio people nature still-life street dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-7.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-7.jpg"></a><span>5</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail.html">Stay single</a></h5>
-<p>Make Way</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio nature people street still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-8.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-8.jpg"></a><span>12</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail-with-lhs.html">Born to Ride</a></h5>
-<p>Cowboys are born, ain't made!</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-<div class="portfolio street nature people still-life dt-sc-one-fourth">
-<figure>
-<img src="images/portfolio-images/img-9.jpg" alt title>
-<figcaption>
-<div class="portfolio-detail">
-<div class="views">
-<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="images/portfolio-images/img-9.jpg"></a><span>15</span>
-</div>
-<div class="portfolio-title">
-<h5><a href="gallery-detail-with-rhs.html">Stand Tall</a></h5>
-<p>Hard to Settle!!</p>
-</div>
-</div>
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
+    <a style="margin-top:10px;" data-filter="*" href="#" title="09" class="dt-sc-tooltip-top active-sort type1 dt-sc-button animate" data-animation="fadeIn" data-delay="100">All</a>
+    @foreach ($categories as $category )
+    <a style="margin-top:10px;" data-filter=".{{$category->id}}" href="#" title="{{$category->title_en}}" class="dt-sc-tooltip-top type1 dt-sc-button animate" data-animation="fadeIn" data-delay="200">{{$category->title_en}}</a>
+    @endforeach
+    </div>
+    <div class="portfolio-fullwidth">
+    <div class="portfolio-grid" >
+    <div class="dt-sc-portfolio-container isotope" id="items_container" > 
+        {{-- @foreach($categories as $category) --}}
+        @foreach($products as $product)
+      <div class= "portfolio {{$product->category_id}} still-life dt-sc-one-fourth isotope-item">
+      
+    <figure>
+    <img src="{{asset(@$product->images[0]->image_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title>
+    <figcaption>
+    <div class="portfolio-detail">
+    <div class="views">
+    <a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="{{asset(@$product->images[0]->image_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';"></a><span>{{count($product->images)}}</span>
+    </div>
+    <div class="portfolio-title">
+    <h5><a href="gallery-detail.html">{{$product->title}}</a></h5>
+    <p>{{$product->description}}</p>
+    </div>
+    </div>
+    </figcaption>
+    </figure>
+    </div>
+    @endforeach
+  
+        <figure>
+        <img src="/front/images/portfolio-images/img-1.jpg" alt title>
+        <figcaption>
+        <div class="portfolio-detail">
+        <div class="views">
+        <a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="/front/images/portfolio-images/img-1.jpg"></a><span>3</span>
+        </div>
+        <div class="portfolio-title">
+        <h5><a href="gallery-detail.html">Proposing Love</a></h5>
+        <p>Sample text here looks good</p>
+        </div>
+        </div>
+        </figcaption>
+        </figure>
+        </div>
+    {{-- @endforeach --}}
+    <span id="items_container">
+    </span>
+ </div>
+    </div>
+    </div>
+    </div>
+   
+   
 <div class="aligncenter">
-<a href="#" class="loadmore dt-sc-button medium type3 with-icon"><i class="fa fa-picture-o"></i> <span> load more </span> </a>
+{{-- <a href="#" class="loadmore dt-sc-button medium type3 with-icon"><i class="fa fa-picture-o"></i> <span> load more </span> </a> --}}
+{{-- <button id="load_more_button" data-page="{{ $products->currentPage() + 1 }}"
+    class="loadmore dt-sc-button medium type3 with-icon"></i> <span> load more </span>
+</button> --}}
+<button id="load_more_button" data-page="{{ $products->currentPage() + 1 }}" class="loadmore dt-sc-button medium type3 with-icon"><i class="fa fa-paint-brush"></i><span> More Art </span></button>
 </div>
 <div class="dt-sc-hr-invisible-small"></div>
 </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var start = 5;
 
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>How to Create Ajax based Bootstrap Pagination in Laravel 9</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <style>
-        #items_container .content_box div {
-            box-shadow: 0 0 3px rgba(0, 0, 0, .3);
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container py-4">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row" id="items_container">
-
-                    @foreach ($categories as $item)
-
-                        <div class="col-md-4 content_box">
-                            <div>
-                                <h2>{{ $item->title }}</h2>
-                                <p>{{ $item->description }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="col-md-12">
-                    <div class="text-center">
-                        <button id="load_more_button" data-page="{{ $categories->currentPage() + 1 }}"
-                            class="btn btn-primary">Load More</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            var start = 5;
-
-            $('#load_more_button').click(function() {
-                $.ajax({
-                    url: "{{ route('load.more') }}",
-                    method: "GET",
-                    data: {
-                        start: start
-                    },
-                    dataType: "json",
-                    beforeSend: function() {
-                        $('#load_more_button').html('Loading...');
-                        $('#load_more_button').attr('disabled', true);
-                    },
-                    success: function(data) {
-                        if (data.data.length > 0) {
-                            var html = '';
-                            for (var i = 0; i < data.data.length; i++) {
-                                html += `<div class="col-md-4 content_box">
-                                            <div>
-                                                <h2>` + data.data[i].title + `</h2>
-                                                <p>` + data.data[i].description + `</p>
-                                            </div>
-                                        </div>`;
-                            }
-                            //console.log(html);
-                            //append data  without fade in effect
-                            //$('#items_container').append(html);
-
-                            //append data with fade in effect
-                            $('#items_container').append($(html).hide().fadeIn(1000));
-                            $('#load_more_button').html('Load More');
-                            $('#load_more_button').attr('disabled', false);
-                            start = data.next;
-                        } else {
-                            $('#load_more_button').html('No More Data Available');
-                            $('#load_more_button').attr('disabled', true);
-                        }
+    $('#load_more_button').click(function() {
+        $.ajax({
+            url: "{{ route('load.more') }}",
+            method: "GET",
+            data: {
+                start: start
+            },
+            dataType: "json",
+            beforeSend: function() {
+                $('#load_more_button').html('Loading...');
+                $('#load_more_button').attr('disabled', true);
+            },
+            success: function(data) {
+                if (data.data.length > 0) {
+                    var html = '';
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += `<div class="portfolio nature still-life dt-sc-one-fourth">
+<figure>
+<img src="/front/images/portfolio-images/img-1.jpg" alt title>
+<figcaption>
+<div class="portfolio-detail">
+<div class="views">
+<a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="/front/images/portfolio-images/img-1.jpg"></a><span>3</span>
+</div>
+<div class="portfolio-title">
+<h5><a href="gallery-detail.html">`+ data.data[i].title +`</a></h5>
+<p>`+ data.data[i].title +`</p>
+</div>
+</div>
+</figcaption>
+</figure>
+</div>`;
                     }
-                });
-            });
-        });
-    </script>
-</body>
+                    //console.log(html);
+                    //append data  without fade in effect
+                    //$('#items_container').append(html);
 
-</html>
+                    //append data with fade in effect
+                    $('#items_container').append($(html).hide().fadeIn(1000));
+                    $('#load_more_button').html('<i class="fa fa-paint-brush"></i><span> More Art </span>');
+                    $('#load_more_button').attr('disabled', false);
+                    start = data.next;
+                } else {
+                    $('#load_more_button').html('No More Data Available');
+                    $('#load_more_button').attr('disabled', true);
+                }
+            }
+        });
+    });
+});
+</script>
+@endsection
+
