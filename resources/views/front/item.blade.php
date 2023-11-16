@@ -22,7 +22,64 @@
     <h3> {{$product->title}} </h3>
     <p>{{$product->description}}</p>
     </div>
-    <section id="primary" class="content-full-width">
+    <section id="secondary" class="secondary-sidebar secondary-has-left-sidebar">
+        <aside class="widget widget_search">
+        <div class="widgettitle sub-title">
+        <h3>Have you Lost ?</h3>
+        </div>
+        <form method="post" novalidate="novalidate" id="searchform" action="#">
+        <p class="input-text">
+        <input class="input-field" type="email" name="mc_email" value required />
+        <label class="input-label">
+        <i class="fa fa-search icon"></i>
+        <span class="input-label-content">Hunt</span>
+        </label>
+        <input type="submit" name="submit" class="submit" value="Submit" />
+        </p>
+        </form>
+        <div id="ajax_subscribe_msg"></div>
+        </aside>
+        <aside class="widget widget_categories">
+        <div class="widgettitle sub-title">
+        <h3> Categories </h3>
+        </div>
+        <ul>
+        <li class="cat-item"><a title="#" href="#">Corporate<span> 2</span></a></li>
+        <li class="cat-item"><a title="#" href="#">Design<span> 3</span></a></li>
+        <li class="cat-item"><a title="#" href="#">Learning<span> 2</span></a></li>
+        <li class="cat-item"><a title="#" href="#">Tools<span> 1</span></a></li>
+        <li class="cat-item"><a title="#" href="#">Training<span> 3</span></a></li>
+        </ul>
+        </aside>
+        <aside class="widget widget_popular_entries">
+        <div class="widgettitle sub-title">
+        <h3> Latest Gallery</h3>
+        </div>
+        <div class="recent-gallery-widget">
+        <ul>
+        <li>
+        <a class="entry-thumb" href="#"><img alt="Enjoy Life with Family" src="images/blog-images/blog-img3.jpg"></a>
+        <h5><a href="#"> Cowboy of Timberland </a></h5>
+        <p>Vivamus ullamcorper, enim at varius molestie, nunc libero pulvinar sapien, quis fringilla purus mi vitae tellus.</p>
+        </li>
+        </ul>
+        </div>
+        </aside>
+        <aside class="widget widget_tag_cloud">
+        <div class="widgettitle sub-title">
+        <h3> Tags </h3>
+        </div>
+        <div class="tagcloud type3">
+        <a title="1 topic" href="#">Sketch</a>
+        <a title="1 topic" href="#">Oil color</a>
+        <a title="1 topic" href="#">Acrylic</a>
+        <a title="1 topic" href="#">Sculpture</a>
+        <a title="1 topic" href="#">Crayons</a>
+        <a title="1 topic" href="#">Art</a>
+        </div>
+        </aside>
+        </section>
+    <section id="primary" class="with-sidebar with-left-sidebar">
     <article>
     <div class="dt-sc-one-column column first">
     <div class="recent-gallery-container">

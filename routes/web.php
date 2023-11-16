@@ -17,7 +17,7 @@ use App\Http\Controllers\Front\VendorController;
 use App\Http\Controllers\Front\GalleryController;
 use App\Http\Controllers\Front\ItemController;
 use App\Http\Controllers\Front\ArtistController;
-use App\Http\Controllers\Front\ItemDetailsController;
+use App\Http\Controllers\Front\ShopController;
 
 
 use App\Models\Countries;
@@ -291,7 +291,10 @@ Route::get('/load-more-data', [GalleryController::class,'loadMoreData'])->name('
 Route::get('/item/{id}', [ItemController::class,'index']);
 Route::get('/artist/{id}', [ArtistController::class,'index']);
 Route::post('/save-comment', [ArtistController::class, 'save_comment'])->name('save-comment');
-Route::get('/item/{id}', [ItemDetailsController::class,'index']);
+Route::get('/shop', [ShopController::class,'index']);
+
+Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add');
+
 
 // Route::get('/', function () {
 //     return view('welcome');
