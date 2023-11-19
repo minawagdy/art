@@ -20,13 +20,20 @@ class ShopController extends Controller
         })->where('is_active',1)->orderby('id','desc')->paginate(15);
         
         $category = Category::where('published',1)->get();
-
         $categories = $category->filter(function ($row) use ($country_id) {
             return in_array($country_id,json_decode($row->country));
         });
+        $cart=Cart::where('client_id',1)->get();
 
+        $shoppingBagCount = @$cart[0]->sum_cart['count'];
+        $totalPrice       = @$cart[0]->sum_cart['sum'];
 
-        return view('front.shop',compact('products','categories'));
+        // $totalPrice    =  Cart::whereHas('productPrice', function ($q) {
+        //     $q->select(\DB::raw('SUM(price) as total_price'));
+        // })->sum('productPrice.total_price');
+
+         
+        return view('front.shop',compact('products','categories','shoppingBagCount','totalPrice'));
     }
 
     public function addToCart(Request $request)
@@ -56,7 +63,15 @@ if($existingCartItem){
         $cartItem->price_id   = $price_id;
         $cartItem->save();
 
-        return response()->json(['message' => 'Product added to cart successfully']);
+          // Retrieve the updated shopping bag count
+          $cart = Cart::where('client_id',$client_id)->get();
+
+          $shoppingBagCount = @$cart[0]->sum_cart['count'];
+          $totalPrice       = @$cart[0]->sum_cart['sum'];
+  
+
+
+        return response()->json(['success' => true,'message' => 'Product added to cart successfully','shoppingBagCount' => $shoppingBagCount,'totalPrice'=>$totalPrice]);
 
     }
 }

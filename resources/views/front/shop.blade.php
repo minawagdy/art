@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="cart-count">
-<a href="#">Shopping Bag: 0 items</a>
-<a href="#">($0.00)</a>
+<a  href="#">Shopping Bag: <span id="shopping-bag-count">{{ @$shoppingBagCount }}</span> items</a>
+<a href="#">Total Price: $<span  id="shopping-bag-sum">{{ @$totalPrice }}</span></a>
 </div>
 </div>
 </div>
@@ -147,6 +147,13 @@
             },
             success: function (response) {
                 alert(response.message);
+                var shoppingBagCount = parseInt($('#shopping-bag-count').text());
+                    $('#shopping-bag-count').text(shoppingBagCount + 1);
+                    var updatedCount = response.shoppingBagCount;
+                  $('#shopping-bag-count').text(updatedCount);
+
+                  var totalPrice = response.totalPrice;
+                    $('#shopping-bag-sum').text(totalPrice); //
                 // Optionally, update the cart UI or perform any other actions
             },
             error: function (xhr) {

@@ -18,6 +18,7 @@ use App\Http\Controllers\Front\GalleryController;
 use App\Http\Controllers\Front\ItemController;
 use App\Http\Controllers\Front\ArtistController;
 use App\Http\Controllers\Front\ShopController;
+use App\Http\Controllers\Front\ShoppingCartController;
 
 
 use App\Models\Countries;
@@ -294,6 +295,10 @@ Route::post('/save-comment', [ArtistController::class, 'save_comment'])->name('s
 Route::get('/shop', [ShopController::class,'index']);
 
 Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add');
+
+Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
+
+Route::patch('update-cart', [ShoppingCartController::class, 'update'])->name('update.cart');
 
 
 // Route::get('/', function () {
