@@ -37,6 +37,7 @@ class ShoppingCartController extends Controller
 
     }
 
+   
     private function calculateUpdatedPrice($itemId, $newQuantity)
     {
         $cart = Cart::where('id',$itemId)->first();

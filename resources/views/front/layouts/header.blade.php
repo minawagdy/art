@@ -76,7 +76,8 @@
     </ul> 
     </nav> 
     </div>
-    <div class="slider-container">
-    <div class="slider fullwidth-section parallax"></div>
-    </div>
     <div id="main">
+
+  
+    
+    

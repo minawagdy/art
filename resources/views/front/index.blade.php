@@ -7,6 +7,10 @@
     background-image: url({{asset('storage/'.$setting->main_image)}}) !important;
 }
 </style>
+<div class="slider-container">
+    <div class="slider fullwidth-section parallax"></div>
+    </div>
+        
 <section id="primary" class="content-full-width"> 
     <div class="dt-sc-hr-invisible-small"></div>
     <div class="fullwidth-section"> 

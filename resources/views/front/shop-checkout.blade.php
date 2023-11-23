@@ -20,13 +20,11 @@
     
     <div class="woocommerce">
     
-    <form name="checkout" method="post" class="checkout" action="#">
-    
+    <form action="{{route('checkout.store')}}" method="post" class="checkout">
+     @csrf
     <div class="col2-set" id="customer_details">
-    
-  
+     
     <div class="col-12">
-    
     <div class="woocommerce-shipping-fields">
     <h3>Shipping Address</h3>
     {{-- <p id="ship-to-different-address">
@@ -37,11 +35,11 @@
 
     <p class="form-row form-row-wide" id="shipping_company_field"><label for="shipping_company" class>Name</label><input type="text" class="input-text " name="shipping_company" id="shipping_company" placeholder value="{{$client->name}}" /></p>
 
-    <div class="form-row form-row-wide address-field validate-required">
+    <div class="form-row form-row-wide address-field">
         <label>Address </label>
         <div class="selection-box">
         <select name="address" class="shop-dropdown">
-            <option value="">Select Address</option>
+            <option value="0">Select Address</option>
         @foreach ($client->address as $address )
         
         <option value="{{$address->id}}">{{($address->building_type!=null) ? $address->building_type : $address->street }}</option>
@@ -52,7 +50,7 @@
         </div>
 
         <h3>Add New Adress</h3>
-        <p class="form-row form-row-first address-field validate-required" id="shipping_city_field">
+        <p class="form-row form-row-first address-field" id="shipping_city_field">
             <label>Country</label>
             <select id="countrySelect" class="input-text " value  name="country" />
             <option value="">Select Country</option>
@@ -64,7 +62,7 @@
             
         </select>
         </p>
-        <p class="form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field">
+        <p class="form-row form-row-last address-field" id="shipping_postcode_field">
         <label for="shipping_postcode" class>Government *</label>
         <select id="citySelect" type="text" class="input-text " name="government" id="shipping_postcode"/>
         <option value="">Select Government</option> <!-- Static option -->
@@ -72,36 +70,44 @@
         </select>
         </p>
         
- 
-        <div class="column dt-sc-one-third first">
+        <p class="form-row form-row-first address-field" id="shipping_postcode_field">
+            <label for="shipping_postcode" class>Zone *</label>
+            <select id="areaSelect" type="text" class="input-text " name="zone" id="shipping_postcode"/>
+            <option value="">Select Zone</option> <!-- Static option -->
+        
+            </select>
+            </p>
+            <p class="form-row form-row-last address-field" id="shipping_postcode_field">
+            <label for="shipping_postcode" class>phone *</label>
+            <input type="text" class="input-text " name="phone" id="shipping_postcode" placeholder="Postcode" /></p>
+
+            <div class="row">
+        <div class="col-md-4">
             <p class="input-text">
-                <label for="shipping_address_1" class>building_number</label>
-            <input class="input-field" type="text" required="" name="txtname" title="Enter your Name" placeholder="Name *">
+                <label for="shipping_address_1" class>Building Number</label>
+            <input class="input-field" type="text"  name="building_number" title="Enter your Building Number" placeholder="Building Number *">
             </p>
             </div>
-            <div class="column dt-sc-one-third">
+            <div class="col-md-4">
                 <p class="input-text">
-                    <label for="shipping_address_1" class>building_number</label>
+                    <label for="shipping_address_2" class>Floor Number</label>
 
-                <input class="input-field error" type="email" required="" autocomplete="off" name="txtemail" title="Enter your valid id" placeholder="Email *">
+                <input class="input-field error" type="text"  autocomplete="off" name="floor_number" title="Enter your Floor Number" placeholder="Floor Number *">
                 </p>
                 </div>
-                <div class="column dt-sc-one-third">
+                <div class="col-md-4">
                     <p class="input-text">
-                        <label for="shipping_address_1" class>building_number</label>
+                        <label for="shipping_address_3" class>Flat Number</label>
 
-                    <input class="input-field" type="text" autocomplete="off" placeholder="Website">
+                    <input class="input-field" type="text" autocomplete="off" placeholder="Flat Number" title="Flat Number">
                     </p>
                     </div>
+            </div>
 
-                    <p class="form-row form-row-wide address-field validate-required" id="shipping_address_1_field">
-                        <label for="shipping_address_1" class>building_number</label>
-                        <input type="text" class="input-text " name="shipping_address" id="shipping_address_1" placeholder="Street Name" value />
-                    </p>
-
-    <p class="form-row form-row-wide address-field validate-required" id="shipping_address_1_field">
+                
+    <p class="form-row form-row-wide address-field" id="shipping_address_1_field">
         <label for="shipping_address_1" class>Address</label>
-        <input type="text" class="input-text " name="shipping_address" id="shipping_address_1" placeholder="Street Name" value />
+        <input type="text" class="input-text " name="street" id="shipping_address_1" placeholder="Street Name" value />
     </p>
     {{-- <div class="form-row form-row-wide address-field validate-required">
         <label>Country </label>
@@ -118,10 +124,8 @@
         
     {{-- <p class="form-row form-row-wide address-field validate-state" id="shipping_state_field"><label for="shipping_state" class>County </label><input type="text" class="input-text " name=" shipping_state" placeholder="State / County" value id="shipping_state" /></p> --}}
    
-    <p class="form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field">
         
-    <label for="shipping_postcode" class>Postcode *</label>
-    <input type="text" class="input-text " name="postcode" id="shipping_postcode" placeholder="Postcode" /></p>
+  
     <div class="clear"></div>
     </div> 
     </div> 

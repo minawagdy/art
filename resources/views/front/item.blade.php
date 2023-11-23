@@ -44,11 +44,11 @@
         <h3> Categories </h3>
         </div>
         <ul>
-        <li class="cat-item"><a title="#" href="#">Corporate<span> 2</span></a></li>
-        <li class="cat-item"><a title="#" href="#">Design<span> 3</span></a></li>
-        <li class="cat-item"><a title="#" href="#">Learning<span> 2</span></a></li>
-        <li class="cat-item"><a title="#" href="#">Tools<span> 1</span></a></li>
-        <li class="cat-item"><a title="#" href="#">Training<span> 3</span></a></li>
+            @foreach ($categories as $category )
+            <li class="cat-item"><a title="#" href="#">{{$category->title_en}}<span> {{$category->products_count}}</span></a></li>
+
+            @endforeach
+       
         </ul>
         </aside>
         <aside class="widget widget_popular_entries">

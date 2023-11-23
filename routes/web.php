@@ -282,7 +282,7 @@ Route::group(['middleware' => 'country'], function() {
 
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('/category/1', [IndexController::class, 'getCategory'])->name('category');
+Route::get('/category/{id}', [IndexController::class, 'getCategory'])->name('category');
 Route::post('/wishlist',[IndexController::class, 'toggle'])->name('wishlist.toggle');
 Route::get('/allProviders',[VendorController::class, 'index'])->name('allvendors');
 Route::post('/products', [IndexController::class,'getProductsByCategory'])->name('products.byCategory');
@@ -304,6 +304,8 @@ Route::get('/fetch-text', [ShoppingCartController::class,'fetchText'])->name('fe
 Route::get('/shop-checkout', [ShopCheckoutCartController::class,'index']);
 Route::get('/get-cities/{country}', [ShopCheckoutCartController::class,'getCities'])->name('get.cities');
 Route::get('/get-areas/{city}', [ShopCheckoutCartController::class, 'getAreas'])->name('get.areas');
+Route::post('/checkout/add', [ShopCheckoutCartController::class, 'store'])->name('checkout.store');
+
 
 
 
