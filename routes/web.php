@@ -19,8 +19,7 @@ use App\Http\Controllers\Front\ItemController;
 use App\Http\Controllers\Front\ArtistController;
 use App\Http\Controllers\Front\ShopController;
 use App\Http\Controllers\Front\ShoppingCartController;
-
-
+use App\Http\Controllers\Front\ShopCheckoutCartController;
 use App\Models\Countries;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Administration\SliderController;
@@ -299,6 +298,13 @@ Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add')
 Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
 
 Route::patch('update-cart', [ShoppingCartController::class, 'update'])->name('update.cart');
+
+Route::delete('remove-from-cart', [ShoppingCartController::class, 'remove'])->name('remove.from.cart');
+Route::get('/fetch-text', [ShoppingCartController::class,'fetchText'])->name('fetch.text');
+Route::get('/shop-checkout', [ShopCheckoutCartController::class,'index']);
+Route::get('/get-cities/{country}', [ShopCheckoutCartController::class,'getCities'])->name('get.cities');
+Route::get('/get-areas/{city}', [ShopCheckoutCartController::class, 'getAreas'])->name('get.areas');
+
 
 
 // Route::get('/', function () {

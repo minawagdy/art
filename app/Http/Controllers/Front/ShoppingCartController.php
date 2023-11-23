@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\ProductPrice;
 class ShoppingCartController extends Controller
 {
     public function index(){
@@ -45,4 +46,32 @@ class ShoppingCartController extends Controller
 
         return $updatedPrice;
     }
-}
+
+    public function fetchText(Request $request)
+    {
+        // Retrieve the selected option from the request
+        $selectedOption = $request->input('option');
+
+        $pp=ProductPrice::where('id',$selectedOption)->first();
+        $text = $pp->price; 
+        $updatedPrice = $text * 1;
+
+        return response()->json(['text' => $text,'updatedPrice'=>$updatedPrice]);
+    }
+
+    public function remove(Request $request)
+
+    {
+
+        if($request->id) {
+
+
+          Cart::where('id',$request->id)->delete();
+            }
+
+            session()->flash('success', 'Product removed successfully');
+
+        }
+
+    }
+

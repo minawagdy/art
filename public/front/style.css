@@ -1208,7 +1208,7 @@ table.shop_table .quantity .plus, table.shop_table .quantity .minus, .product .s
 .woocommerce form .form-row-first, .woocommerce-page form .form-row-first, .woocommerce form .form-row-last, .woocommerce-page form .form-row-last {
     float: left;
     overflow: visible;
-    width: 48%}
+    width: 49%}
 .woocommerce form .form-row.form-row-first {
     margin-right: 22px;
 }

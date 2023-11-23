@@ -48,8 +48,8 @@
         <td class="product-name">
         <h6><a href="shop-detail.html">{{$cart->product->title}}</a></h6>
         </td>
-        <td class="product-name" data-th="Price">
-            <select >
+        <td class="product-name" data-th="Price"">
+            <select class="selectOption">
                 @foreach($cart->product->prices as $price)
                 @if($cart->productPrice->id == $price->id)
                 <option selected value="{{$price->id}}">{{$price->title}}</option>
@@ -60,7 +60,7 @@
             </select>
             </td>
         <td class="product-price" >
-        <span class="amount"><i class="fa fa-gbp"></i> {{$cart->productPrice->price}}</span>
+        <span id="oneprce{{$cart->id}}" class="amount">{{$cart->productPrice->price}}</span>
         </td>
         
         <td class="product-quantity" data-th="Quantity">
@@ -75,20 +75,20 @@
         </div>
         </td>
         
-        <td class="product-subtotal price">
-        <span class="amount"><i class="fa fa-gbp"></i> {{$cart->productPrice->price * $cart->count}}</span>
+        <td class="product-subtotal" >
+         <p id="prce{{$cart->id}}">{{$cart->productPrice->price * $cart->count}}</p>
         </td>
-        
+      
         <td class="product-remove" data-th="">
-        <a href="#" class="remove" title="Remove this item">&times;</a>
+        <a href="#" class="remove btn-sm remove-from-cart" title="Remove this item">&times;</a>
         </td>
         </tr>
         @endforeach
 
         </tbody>
         </table>
-        <input type="submit" class="button" name="update_cart" value="Update Cart">
-        <input type="submit" class="button" name="continue" value="Continue Shopping">
+        {{-- <input type="submit" class="button" name="update_cart" value="Update Cart"> --}}
+        <a href="{{url('shop')}}" class="button">Continue Shopping</a>
         </form>
         <div class="cart-collaterals">
         <div class="coupon">
@@ -131,46 +131,110 @@
 
   
 
-    $(".update-cart,.minus,.plus").on('change',function (e) {
+    $(".update-cart,.minus,.plus").on('keyup',function (e) {
 
         e.preventDefault();
 
-  
+        var ele = $(this);
 
-var ele = $(this);
+        $.ajax({
+
+            url: '{{ route('update.cart') }}',
+
+            method: "patch",
+
+            data: {
+
+                _token: '{{ csrf_token() }}', 
+
+                id: ele.parents("tr").attr("data-id"), 
+
+                quantity: ele.parents("td").find(".q").val()
+
+            },
+
+            success: function (response) {
+
+                var newPrice = response.updatedPrice;
+                var id = ele.parents("tr").attr("data-id");
+               $("#prce"+id ).text(newPrice);
+
+            }
+
+        });
+
+        });
+
+        $(".remove-from-cart").click(function (e) {
+
+            e.preventDefault();
 
 
 
-$.ajax({
+            var ele = $(this);
 
-    url: '{{ route('update.cart') }}',
 
-    method: "patch",
 
-    data: {
+            if(confirm("Are you sure want to remove?")) {
 
-        _token: '{{ csrf_token() }}', 
+                $.ajax({
 
-        id: ele.parents("tr").attr("data-id"), 
+                    url: '{{ route('remove.from.cart') }}',
 
-        quantity: ele.parents("td").find(".q").val()
+                    method: "DELETE",
 
-    },
+                    data: {
 
-    success: function (response) {
+                        _token: '{{ csrf_token() }}', 
 
-        var newPrice = response.updatedPrice;
-        ele.parents('td').find('.price').text(newPrice);
+                        id: ele.parents("tr").attr("data-id")
 
-    }
+                    },
 
-});
+                    success: function (response) {
 
-});
+                        ele.parents("tr").remove();
 
-  
+                    }
 
-  
+                });
+
+            }
+
+            });
+
+            $(document).ready(function() {
+            
+            $('.selectOption').change(function() {
+                
+                var ele = $(this);
+
+            var selectedOption = $(this).val();
+        // AJAX request to fetch text based on the selected option
+        $('.q').val(1);
+
+            $.ajax({
+                url: '/fetch-text',
+                method: 'GET',
+                data: {
+                    option: selectedOption
+                },
+                success: function(response) {
+                    // Update the text on the page with the fetched data
+                    var text = response.text;
+                    var id = ele.parents("tr").attr("data-id");
+                   $("#oneprce"+id ).text(text);
+                   var newPrice = response.updatedPrice;
+                  $("#prce"+id ).text(newPrice);
+                   
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    // Handle errors here
+                }
+            });
+        });
+    });  
 
   
 
