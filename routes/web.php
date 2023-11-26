@@ -289,11 +289,15 @@ Route::post('/products', [IndexController::class,'getProductsByCategory'])->name
 Route::get('/gallery', [GalleryController::class,'index'])->name('gallery.index');
 Route::get('/load-more-data', [GalleryController::class,'loadMoreData'])->name('load.more');
 Route::get('/item/{id}', [ItemController::class,'index']);
+Route::post('/addToCart', [ItemController::class,'addToCart'])->name('addToCart');
+
 Route::get('/artist/{id}', [ArtistController::class,'index']);
 Route::post('/save-comment', [ArtistController::class, 'save_comment'])->name('save-comment');
 Route::get('/shop', [ShopController::class,'index']);
 
 Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add');
+
+
 
 Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
 

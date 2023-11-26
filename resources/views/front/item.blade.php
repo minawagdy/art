@@ -20,14 +20,14 @@
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
     <h3> {{$product->title}} </h3>
-    <p>{{$product->description}}</p>
+    <p>{{$product->category->title_en}}</p>
     </div>
-    <section id="secondary" class="secondary-sidebar secondary-has-left-sidebar">
+    {{-- <section id="secondary" class="secondary-sidebar secondary-has-left-sidebar">
         <aside class="widget widget_search">
         <div class="widgettitle sub-title">
         <h3>Have you Lost ?</h3>
         </div>
-        <form method="post" novalidate="novalidate" id="searchform" action="#">
+        <form method="post" novalidate="novalidate" id="searchform" action="route('search.')">
         <p class="input-text">
         <input class="input-field" type="email" name="mc_email" value required />
         <label class="input-label">
@@ -78,14 +78,14 @@
         <a title="1 topic" href="#">Art</a>
         </div>
         </aside>
-        </section>
-    <section id="primary" class="with-sidebar with-left-sidebar">
+        </section> --}}
+    <section id="primary" class="content-full-width">
     <article>
     <div class="dt-sc-one-column column first">
     <div class="recent-gallery-container">
     <ul class="recent-gallery">
         @foreach($product->images as $image)
-    <li> <img style="width: 1200p×;height:500px;" src="{{$image->main_name}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt="image" /> </li>
+    <li> <img style="width:1200px;height:500px;" src="{{$image->main_name}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt="image" /> </li>
     @endforeach
     </ul>
     <div id="bx-pager">
@@ -99,6 +99,121 @@
     <div class="dt-sc-two-third column first animate" data-animation="fadeInLeft" data-delay="100">
     <h3>{{$product->title}}</h3>
     {{$product->description}}
+<div>
+    @foreach($product->prices as $price)
+    <button class="sizeButton" data-priceid="{{$price->id}}" data-productid="{{$product->id}}" data-price="@if($price->offer_end_date>=\Carbon\Carbon::now()->format('Y-m-d') && $price->offer_price!=null){{$price->offer_price}}@else {{$price->price}}@endif
+        ">{{$price->title}}<br>
+        @if($price->offer_end_date>=\Carbon\Carbon::now()->format('Y-m-d') && $price->offer_price!=null){{'Price:'}}<s> {{$price->price}}</s><br>{{'Offer Price:'}}{{$price->offer_price}}@else {{'Price:'}}{{$price->price}}@endif
+    </button>
+
+@endforeach
+
+<!-- Add other buttons for different sizes as needed -->
+
+<!-- Display area for the selected size and price -->
+<div id="selectedSizePrice"></div>
+
+<!-- Button to add the selected item to cart -->
+<button id="addToCartBtn">Add to Cart</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Simulate click on the first size button to set it as selected by default
+    $('.sizeButton:first').addClass('selected');
+
+    // Show selected size and price when a button is clicked
+    $('.sizeButton').click(function() {
+        $('.sizeButton').removeClass('selected'); // Remove the selected class from all buttons
+        $(this).addClass('selected'); // Add the selected class to the clicked button
+
+        var selectedSize    = $(this).data('priceid');
+        var selectedPrice   = $(this).data('price');
+        var SelectProduct = $(this).data('productid');
+        // $('#selectedSizePrice').text('Size: ' + selectedSize + ', Price: $' + selectedPrice.toFixed(2));
+    });
+
+    // Handle adding the selected item to cart when clicking the button
+    $('#addToCartBtn').click(function() {
+        var selectedSize = $('.sizeButton.selected').data('priceid');
+        var selectedPrice = parseFloat($('.sizeButton.selected').data('price'));
+        var SelectProduct = parseFloat($('.sizeButton.selected').data('productid'));
+
+        // If no size is explicitly clicked, take the details from the first size button
+        if (!selectedSize) {
+            selectedSize = $('.sizeButton:first').data('priceid');
+            selectedPrice = parseFloat($('.sizeButton:first').data('price'));
+            SelectProduct = parseFloat($('.sizeButton.selected').data('productid'));
+
+        }
+
+        // AJAX call to send data to Laravel backend
+        $.ajax({
+            url: '/addToCart', // Your Laravel route to handle adding to the cart
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            data: {
+                size: selectedSize,
+                price: selectedPrice,
+                count:1,
+                product:SelectProduct
+                // Add other necessary data for cart entry
+            },
+            success: function(response) {
+        // Check the response for success or error status
+        if (response && response.success === true) {
+            // Handle successful addition of the item to the cart
+            console.log('Item added to cart with ID:', response.last_inserted_id);
+            // Other actions with the response data
+            alert('Item added to cart.');
+
+        } else {
+            // If the response contains an error message
+            if (response && response.error === 'Item already exists in the cart') {
+                // Show an alert for the specific error message
+                alert('Item already exists in the cart.');
+            }else {
+            // If the response doesn't indicate success, handle it as an error
+            console.error('Error adding item to cart: Unexpected response', response);
+        }
+    }
+    },
+    error: function(xhr) {
+        // Check if the response status is 401 (Unauthorized) or if the item already exists in the cart
+        if (xhr.status === 401) {
+            // Show a confirmation dialog
+            var confirmation = confirm('Please login first. Do you want to proceed to the login page?');
+
+            if (confirmation) {
+                // Redirect to the login page
+                window.location.href = '/login'; // Replace with your login page URL
+            } else {
+                // User clicked cancel, perform any other action or display message
+                console.log('Action canceled by the user.');
+            }
+        } else {
+            // Handle other errors if needed
+            console.error('Error adding item to cart:', xhr);
+            alert.error('Error adding item to cart');
+        }
+    }
+});
+});
+});
+
+</script>
+
+<style>
+/* CSS to define the selected class */
+.selected {
+    background-color: yellow; /* Change this to the desired selected state color */
+    /* Add other styles as needed */
+}
+</style>
+
+</div>
     </div>
     <div class="dt-sc-one-third column animate" data-animation="fadeInRight" data-delay="100">
     <div class="dt-sc-project-details">
@@ -120,8 +235,8 @@
     </div>
     </div>
     <div class="dt-sc-post-pagination">
-    <a class="dt-sc-button small type3 with-icon prev-post" href="#"> <span> Previous Post </span> <i class="fa fa-hand-o-left"> </i> </a>
-    <a class="dt-sc-button small type3 with-icon next-post" href="#"><i class="fa fa-hand-o-right"> </i> <span> Next Post </span> </a>
+    <a class="dt-sc-button small type3 with-icon prev-post" href="{{url('item')}}{{'/'}}@if(@$previousItem->id!=null){{@$previousItem->id}} @else{{$product->id}} @endif"> <span> Previous Post </span> <i class="fa fa-hand-o-left"> </i> </a>
+    <a class="dt-sc-button small type3 with-icon next-post" href="{{url('item')}}{{'/'}}@if(@$nextItem->id!=null){{@$nextItem->id}} @else{{$product->id}} @endif"><i class="fa fa-hand-o-right"> </i> <span> Next Post </span> </a>
     </div>
     </article>
     </section>
@@ -138,11 +253,11 @@
         @foreach ($productCategories as $productCategory )
     <div class="portfolio nature still-life dt-sc-one-fourth">
     <figure>
-    <img src="{{asset($productCategory->images[0]->main_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title>
+    <img src="{{asset(@$productCategory->images[0]->main_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title>
     <figcaption>
     <div class="portfolio-detail">
     <div class="views">
-    <a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="{{asset($productCategory->images[0]->main_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';"></a><span>{{count($productCategory->images)}}</span>
+    <a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="{{asset(@$productCategory->images[0]->main_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';"></a><span>{{count($productCategory->images)}}</span>
     </div>
     <div class="portfolio-title">
     <h5><a href="gallery-detail.html">{{$productCategory->title}}</a></h5>

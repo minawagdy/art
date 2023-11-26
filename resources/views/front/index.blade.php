@@ -2,22 +2,23 @@
 
 @section('content')
 
-<style>
+{{-- <style>
 .slider {
     background-image: url({{asset('storage/'.$setting->main_image)}}) !important;
 }
-</style>
-<div class="slider-container">
-    <div class="slider fullwidth-section parallax"></div>
-    </div>
-        
+</style> --}}
+
+    <div class="slider-container">
+<div class="slider fullwidth-section parallax"></div>
+</div>
+<div id="main">
 <section id="primary" class="content-full-width"> 
     <div class="dt-sc-hr-invisible-small"></div>
     <div class="fullwidth-section"> 
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
     <h2 class="aligncenter"> BEST SELLERS</h2>
-    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
+    <!--<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>-->
     </div>
     </div>
 
@@ -38,15 +39,15 @@
     <img src="{{asset(@$products->images[0]->image_name)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title>
     <figcaption>
     <div class="portfolio-detail">
-        @foreach ($products->images as $images)
+        {{-- @foreach ($products->images as $images) --}}
     <div class="views">
     <a class="fa fa-camera-retro" data-gal="prettyPhoto[gallery]" href="{{asset(@$images->image_name)}}"></a><span>{{count($products->images)}}</span>
     </div>
-    @endforeach
+    {{-- @endforeach --}}
 
     <div class="portfolio-title">
-    <h5><a href="gallery-detail.html">{{$products->title}}</a></h5>
-    <p>{{$products->description}}</p>
+    <h5><a href="{{url('item/'.$products->id)}}">{{$products->title}}</a></h5>
+    <p>{{$products->category->title_en}}</p>
     </div>
     </div>
     </figcaption>

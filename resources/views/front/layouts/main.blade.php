@@ -1,5 +1,5 @@
 @include('front.layouts.header')
-<main class="main">
+{{-- <main class="main"> --}}
     @yield('content')
-</main>
+{{-- </main> --}}
 @include('front.layouts.footer')
