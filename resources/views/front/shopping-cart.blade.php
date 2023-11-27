@@ -9,8 +9,8 @@
         <a href="#">Checkout</a>
         </div>
         <div class="cart-count">
-        <a href="#">Shopping Bag: 0 items</a>
-        <a href="#">($0.00)</a>
+        <a  href="#">Shopping Bag: <span class="itemCount">0</span> items</a>
+        <a href="#">(<span class="totalPrice">0</span>)</a>
         </div>
         </div>
         </div>
@@ -88,15 +88,18 @@
         </tbody>
         </table>
         {{-- <input type="submit" class="button" name="update_cart" value="Update Cart"> --}}
+        
         <a href="{{url('shop')}}" class="button">Continue Shopping</a>
         </form>
+<div id="couponMessage"></div>
         <div class="cart-collaterals">
         <div class="coupon">
         <h3>Coupon</h3>
-        <form action="#" method="post">
+        <!-- <form action="#" method="post"> -->
+        <form id="applyCouponForm">
         <label for="coupon_code">Enter Coupon Code</label>
-        <input name="coupon_code" class="input-text" id="coupon_code" value placeholder="Enter Code" />
-        <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
+        <input name="coupon_code" class="input-text" id="couponCode" value placeholder="Enter Code" />
+        <input type="submit" value="Apply Coupon" name="apply_coupon" id="applyCouponBtn" class="button">
         </form>
         </div>
         <div class="cart_totals">
@@ -105,7 +108,7 @@
         <tbody>
         <tr class="cart-subtotal">
         <th>Cart Subtotal</th>
-        <td><span class="amount"><i class="fa fa-gbp"></i> {{$total}}</span></span></td>
+        <td class="totalPrice"><span class="amount"><i class="fa fa-gbp"></i></span></span></td>
         </tr>
         <tr class="shipping">
         <th>Shipping</th>
@@ -113,7 +116,9 @@
         </tr>
         <tr class="total">
         <th>Order Price Total</th>
-        <td><strong><span class="amount"><i class="fa fa-gbp"></i> {{$total}}</span></span></strong></td>
+        <td class="totalPrice"><strong><span class="amount"><i class="fa fa-gbp"></i> </span></span></strong></td>
+
+        
         </tr>
         </tbody>
         </table>
@@ -158,6 +163,9 @@
                 var newPrice = response.updatedPrice;
                 var id = ele.parents("tr").attr("data-id");
                $("#prce"+id ).text(newPrice);
+               updateCartInfo(); 
+
+               
 
             }
 
@@ -194,6 +202,8 @@
                     success: function (response) {
 
                         ele.parents("tr").remove();
+                        updateCartInfo(); 
+
 
                     }
 
@@ -226,7 +236,8 @@
                    $("#oneprce"+id ).text(text);
                    var newPrice = response.updatedPrice;
                   $("#prce"+id ).text(newPrice);
-                   
+                  updateCartInfo(); 
+
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -236,6 +247,34 @@
         });
     });  
 
+    $(document).ready(function() {
+        $('#applyCouponForm').submit(function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            var couponCode = $('#couponCode').val();
+
+            $.ajax({
+                url: '{{ route('apply.coupon') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    coupon_code: couponCode
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        $('#couponMessage').text(response.message);
+                        // Update UI with discount details if needed
+                    } else {
+                        $('#couponMessage').text(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error applying coupon:', error);
+                }
+            });
+        });
+    });
+    
   
 
 </script>

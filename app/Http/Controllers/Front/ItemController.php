@@ -15,11 +15,13 @@ class ItemController extends Controller
     public function index($id){
         $product = Product::find($id);
         $productCategories = Product::where('category_id',$product->category_id)->take(8)->get();
+                // $productCategories = Product::take(8)->get();
+
         $category    = Category::withCount('products')->get();
         $country_id  = Session::get('country')->id;
 
         $categories = $category->filter(function ($row) use ($country_id) {
-            return in_array($country_id, json_decode($row->country));
+            // return in_array($country_id, json_decode($row->country));
         });
         $previousItem = Product::where('id','<',$id)->orderby('id','desc')->first();
         $nextItem     = Product::where('id','>',$id)->orderby('id','asc')->first();

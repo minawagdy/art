@@ -22,7 +22,7 @@ class Cart extends BaseModel {
     }
 
     public function getSumCartAttribute(){
-        $cartItems = $this->where('client_id', 1)
+        $cartItems = $this->where('client_id', auth()->user()->id)
             ->orderBy('id', 'desc')
             ->with(['product', 'productPrice'])
             ->get();

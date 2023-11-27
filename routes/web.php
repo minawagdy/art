@@ -303,6 +303,11 @@ Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
 
 Route::patch('update-cart', [ShoppingCartController::class, 'update'])->name('update.cart');
 
+Route::get('/get-cart-info', [ShoppingCartController::class, 'getCartInfo']);
+Route::post('/apply-coupon', [ShoppingCartController::class, 'applyCoupon'])->name('apply.coupon');
+
+
+
 Route::delete('remove-from-cart', [ShoppingCartController::class, 'remove'])->name('remove.from.cart');
 Route::get('/fetch-text', [ShoppingCartController::class,'fetchText'])->name('fetch.text');
 Route::get('/shop-checkout', [ShopCheckoutCartController::class,'index']);
