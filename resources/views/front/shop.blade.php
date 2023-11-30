@@ -104,7 +104,7 @@
 <li class="product-wrapper dt-sc-one-fifth"> 
 
 <div class="product-container">
-<a href="{{url('item'.'/'.$product->id)}}l"><div class="product-thumb"> <img src="{{asset(@$product->images[0]->image_name)}}" alt="image" /> </div> </a>
+<a href="{{url('item'.'/'.$product->id)}}"><div class="product-thumb"> <img src="{{asset(@$product->images[0]->image_name)}}" alt="image" /> </div> </a>
 <div class="product-title">
     {{-- <input class="price-cart" ="{{ @$product->prices[0]->id }}"> --}}
 

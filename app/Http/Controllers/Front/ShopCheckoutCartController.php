@@ -10,13 +10,18 @@ use App\Models\Gov;
 use App\Models\Zones;
 use App\Models\Order;
 use App\Models\Address;
+use App\Models\Cart;
 
 class ShopCheckoutCartController extends Controller
 {
     public function index(){
         $client  = Customer::with('address')->where('id',8)->first();
         $countries = Countries::all();
-        return view('front.shop-checkout',compact('client','countries'));
+        $carts = Cart::with('product')->where('client_id',auth()->user()->id)->get();
+
+    
+
+        return view('front.shop-checkout',compact('client','countries','carts'));
     }
 
     public function store(Request $request)

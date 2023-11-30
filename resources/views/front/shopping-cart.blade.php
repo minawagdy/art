@@ -124,7 +124,7 @@
         </tr>
         </tbody>
         </table>
-        <a class="dt-sc-button medium type2 with-icon" href="shop-checkout.html"><i class="fa fa-shopping-cart"></i> <span> Proceed to Checkout </span> </a>
+        <a class="dt-sc-button medium type2 with-icon" href="{{url('shop-checkout')}}"><i class="fa fa-shopping-cart"></i> <span> Proceed to Checkout </span> </a>
         </div>
         </div>
         </div>
