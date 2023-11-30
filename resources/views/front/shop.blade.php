@@ -1,13 +1,23 @@
 @extends('front.layouts.main')
 
 @section('content')
-<div class="cart-count">
-<a  href="#">Shopping Bag: <span id="shopping-bag-count">{{ @$shoppingBagCount }}</span> items</a>
-<a href="#">Total Price: $<span  id="shopping-bag-sum">{{ @$totalPrice }}</span></a>
-</div>
-</div>
-</div>
-</div>
+<div class="breadcrumb">
+    <div class="container">
+    <h2>Shop</h2>
+    @if (Auth::check())
+    <div class="user-summary">
+    <div class="account-links">
+    <a href="#">My Account</a>
+    <a href="#">Checkout</a>
+    </div>
+    <div class="cart-count">
+        <a  href="#">Shopping Bag: <span class="itemCount">0</span> items</a>
+        <a href="#">(<span class="totalPrice">0</span>)</a>
+    </div>
+    </div>
+    @endif
+    </div>
+    </div>
 <section id="primary" class="content-full-width">
 <div class="container">
 <div class="main-title animate" data-animation="pullDown" data-delay="100">
@@ -21,7 +31,7 @@
 <div class="categories">
 <h5>Categories</h5>
 <div class="selection-box">
-<select class="shop-dropdown">
+<select id="category-select" class="shop-dropdown">
 <option value="" selected>Choose your category</option>
 @foreach ($categories as $category )
 <option value="{{$category->id}}" class="fa fa-fire-extinguisher">{{$category->title_en}}</option>>
@@ -87,30 +97,32 @@
 </div>
 </div>
 </div>
-<ul class="products isotope">
+<div id="search-results">
+<ul class="products isotope" >
 @foreach ($products as $product ) 
 
 <li class="product-wrapper dt-sc-one-fifth"> 
 
 <div class="product-container">
-<a href="shop-detail.html"><div class="product-thumb"> <img src="{{asset($product->images[0]->image_name)}}" alt="image" /> </div> </a>
+<a href="{{url('item'.'/'.$product->id)}}l"><div class="product-thumb"> <img src="{{asset(@$product->images[0]->image_name)}}" alt="image" /> </div> </a>
 <div class="product-title">
     {{-- <input class="price-cart" ="{{ @$product->prices[0]->id }}"> --}}
 
-<a  class="type1 dt-sc-button add-to-cart" data-price-id ="{{ @$product->prices[0]->id }}" data-product-id="{{ $product->id }}"> <span class="fa fa-shopping-cart"></span> Add to Cart </a>
+{{-- <a  class="type1 dt-sc-button add-to-cart" data-price-id ="{{ @$product->prices[0]->id }}" data-product-id="{{ $product->id }}"> <span class="fa fa-shopping-cart"></span> Add to Cart </a> --}}
 
-<a href="#" class="type1 dt-sc-button"> <span class="fa fa-unlink"></span> Options </a>
-<p>You don't take a photograph, Just make it</p>
+{{-- <a href="#" class="type1 dt-sc-button"> <span class="fa fa-unlink"></span> Options </a> --}}
+{{-- <p>You don't take a photograph, Just make it</p> --}}
 </div> 
 </div> 
 
 <div class="product-details">
-<h5> <a href="shop-detail.html"> Ellents Style Grade </a> </h5>
-<span class="amount"> $25 </span>
+<h5> <a style="color: black;" href="{{url('item'.'/'.$product->id)}}"> {{$product->title}} {{@$product->category->title_en}} </a> </h5>
+<span style="color: black;" class="amount"> {{@$product->prices[0]->price}} </span>
 </div> 
 </li>
 @endforeach
 </ul>
+</div>
 <div class="container">
 <div class="dt-sc-post-pagination">
 <a class="dt-sc-button small type3 with-icon prev-post" href="#"> <span> Previous </span> <i class="fa fa-hand-o-left"> </i> </a>
@@ -163,3 +175,28 @@
     });
 });
     </script>
+
+<script>
+    $(document).ready(function() {
+        $('#category-select').change(function() {
+            var categoryId = $(this).val();
+
+            // Reload the JavaScript file
+            $.getScript("http://localhost:8000/front/js/jquery.isotope.min.js", function() {
+                // Make an Ajax request to fetch search results based on the selected category
+                $.ajax({
+                    url: "{{ route('search.by.category') }}",
+                    method: 'GET',
+                    data: { category_id: categoryId },
+                    success: function(response) {
+                        $('#search-results').html(response); // Update the content with fetched data
+                        $('#yourDiv').show(); // Show the div after the script is reloaded and search results are updated
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); // Handle errors
+                    }
+                });
+            });
+        });
+    });
+</script>

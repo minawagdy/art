@@ -3,16 +3,18 @@
 <div class="breadcrumb">
     <div class="container">
     <h2>Shop <span>Checkout</span></h2>
+    @if (Auth::check())
     <div class="user-summary">
     <div class="account-links">
     <a href="#">My Account</a>
     <a href="#">Checkout</a>
     </div>
     <div class="cart-count">
-    <a href="#">Shopping Bag: 0 items</a>
-    <a href="#">($0.00)</a>
+        <a  href="#">Shopping Bag: <span class="itemCount">0</span> items</a>
+        <a href="#">(<span class="totalPrice">0</span>)</a>
     </div>
     </div>
+    @endif
     </div>
     </div>
     <section id="primary" class="content-full-width">

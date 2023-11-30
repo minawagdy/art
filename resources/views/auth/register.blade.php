@@ -1,5 +1,34 @@
 @extends('front.layouts.main')
 @section('content')
+<style>
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    .content{
+      margin-top:250px;
+      margin-bottom:250px;
+    }
+  }
+  
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) { 
+     .content{
+      margin-top:250px;
+      margin-bottom:250px;
+  
+    }
+   }  
+  
+   @media (min-width: 768px) {  
+    .content{
+      margin-top:250px;
+      margin-bottom:250px;
+  
+    } 
+  }
+  
+    </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <div class="content">
     <div class="container">
       <div class="row">
@@ -10,14 +39,14 @@
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="mb-4">
-              <h3>Sign In</h3>
-              <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+              <h3>Create New Account</h3>
+              <p class="mb-4">have an account? <a href="{{route('client.login')}}">Login here</a></p>
             </div>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-                <div class="form-group first">
+                <div class="form-group last mb-4">
                 <label for="username">Name</label>
-                <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="email" autofocus placeholder="Name*" >
+                <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name*" >
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -62,16 +91,8 @@
               </div>
 
              
-              
-              <div class="d-flex mb-5 align-items-center">
-                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                  <input type="checkbox" checked="checked"/>
-                  <div class="control__indicator"></div>
-                </label>
-                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
-              </div>
-
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
+            
+              <input type="submit" value="Register" class="btn btn-block btn-primary">
 
               {{-- <span class="d-block text-left my-4 text-muted">&mdash; or login with &mdash;</span>
               

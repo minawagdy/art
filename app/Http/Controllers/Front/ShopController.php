@@ -75,4 +75,14 @@ if($existingCartItem){
 
     }
 }
+
+public function searchByCategory(Request $request)
+{
+    $categoryId = $request->input('category_id');
+
+    // Fetch products or data based on the selected category ID
+    $products = Product::where('category_id', $categoryId)->get(); // Adjust this query as per your requirement
+
+    return view('front.search_results', compact('products'))->render(); // Return a Blade partial view with fetched data
+}
 }

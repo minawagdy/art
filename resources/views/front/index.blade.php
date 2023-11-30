@@ -47,7 +47,10 @@
 
     <div class="portfolio-title">
     <h5><a href="{{url('item/'.$products->id)}}">{{$products->title}}</a></h5>
-    <p>{{$products->category->title_en}}</p>
+    <p><a style="color: white;"  href="{{url('artist/'.$products->provider->id)}}">{{@$products->provider->name}}</a></p>
+    <br>
+    <p><a style="color: white;"  href="{{url('category/'.$products->category->title_en)}}">{{@$products->category->title_en}}</a></p>
+
     </div>
     </div>
     </figcaption>
@@ -63,7 +66,7 @@
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
     <h2 class="aligncenter"> Latest Items </h2>
-    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
+    {{-- <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p> --}}
     </div>
     </div>
     <div class="fullwidth-section">
@@ -79,12 +82,14 @@
     </div>
     <div class="entry-details">
     <div class="entry-title">
-    <h3><a href="blog-detail.html">{{$lastProduct->title}}</a></h3>
+    <h3><a href="{{url('item')}}/{{$lastProduct->id}}">{{$lastProduct->title}}</a></h3>
     </div>
     <div class="entry-body">
-    <p><b>{{$lastProduct->description}}</p>
+    <p><b>{{$lastProduct->category->title_en}}</p>
+    <p><b>{{$lastProduct->provider->name}}</p>
+
     </div>
-    <a class="type1 dt-sc-button small" href="gallery-detail.html">View Gallery<i class="fa fa-angle-right"></i></a>
+    <a class="type1 dt-sc-button small" href="{{url('item')}}/{{$lastProduct->id}}">View Gallery<i class="fa fa-angle-right"></i></a>
     </div>
     </article>
     </div>
@@ -97,7 +102,7 @@
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
     <h2 class="aligncenter"> Artists </h2>
-    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
+    {{-- <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p> --}}
     </div>
     </div>
     <div class="frame-grid">
@@ -108,9 +113,11 @@
         
     <div class="frame ceramic dt-sc-one-third">
 
-    <figure>
-   <img src="{{asset($randomArtist->profile_img)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title="{{$randomArtist->name}}">
+        <a href="m">
+    <figure title="{{$randomArtist->name}}">
+   <img src="{{asset(@$randomArtist->profile_img)}}" onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';"  title="{{$randomArtist->name}}">
     </figure>
+        </a>
     </div>
     
     @endforeach
@@ -145,20 +152,14 @@
     <div class="fullwidth-section">
     <div class="container">
     <div class="main-title animate" data-animation="pullDown" data-delay="100">
-    <h2 class="aligncenter"> About Me </h2>
-    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
+    <h2 class="aligncenter"> {{$page->title_en}} </h2>
     </div>
     <div class="about-section">
     <div class="dt-sc-one-half column first">
-    <img src="{{asset('front/images/about.png')}}" title alt>
+    <img src="{{asset($page->image)}}" title alt>
     </div>
     <div class="dt-sc-one-half column">
-    <h3 class="animate" data-animation="fadeInLeft" data-delay="200"> A Little Intro</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-    <h3 class="animate" data-animation="fadeInLeft" data-delay="300">My Exhibitions</h3>
-    <p>Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor quis nostrud exercitation ullamco</p>
-    <h3 class="animate" data-animation="fadeInLeft" data-delay="400">Newsletter</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+    {!! $page->description_en !!}
     <form method="post" class="mailchimp-form dt-sc-three-fourth" name="frmnewsletter" action="https://wedesignthemes.com/html/redart/default/php/subscribe.php">
     <p class="input-text">
     <input class="input-field" type="email" name="mc_email" value required />

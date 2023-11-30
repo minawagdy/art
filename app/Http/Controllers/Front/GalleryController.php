@@ -27,12 +27,9 @@ class GalleryController extends Controller
         $categories = $category->filter(function ($row)  {
             return in_array(session()->get('country')->id, json_decode($row->country));
         });
-
-        // $products=Product::take(5)->get();
+        // $products = Product::take(5)->get();
         $products = Product::paginate(5);
 
-        // paginate(5);
-// dd($products);
         return view('front.gallery', compact('products','categories'));
 
     

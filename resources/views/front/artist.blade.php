@@ -5,23 +5,25 @@
 <div class="breadcrumb">
 <div class="container">
 <h2>Product <span>Detail</span></h2>
+@if (Auth::check())
 <div class="user-summary">
 <div class="account-links">
 <a href="#">My Account</a>
 <a href="#">Checkout</a>
 </div>
 <div class="cart-count">
-<a href="#">Shopping Bag: 0 items</a>
-<a href="#">($0.00)</a>
+    <a  href="#">Shopping Bag: <span class="itemCount">0</span> items</a>
+    <a href="#">(<span class="totalPrice">0</span>)</a>
 </div>
 </div>
+@endif
 </div>
 </div>
 <section id="primary" class="content-full-width">
 <div class="container">
 <div class="main-title animate" data-animation="pullDown" data-delay="100">
 <h3> {{$artist->name}} </h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
+<p>{{$artist->slogan}}</p>
 </div>
 <div class="cart-wrapper">
 <div class="dt-sc-three-fifth column first">
@@ -50,7 +52,7 @@
 
      @for($i=10;$i<count($artist->products);$i++)
 <li>
-<a href="#" class="product"><img style="width:100px;height:100px;" src="{{asset(@$artist->products[$i]->images[0]->image_name)}}"  onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title="{{$artist->products[$i]->title}}"></a>
+<a href="{{url('item/'.$artist->products[$i]->id)}}" class="product"><img style="width:100px;height:100px;" src="{{asset(@$artist->products[$i]->images[0]->image_name)}}"  onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title="{{$artist->products[$i]->title}}"></a>
 </li>
 @endfor
 
@@ -138,7 +140,7 @@
         @foreach ($artist->products as $product)
         @if($maxOrderedProduct->id != $product->id)
         <li @if($counter % 3 == 0) class="last" @endif>
-            <a href="#" class="product"><img style="width: 100px;height:100px;" src="{{$product->MainImage}}"  onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title></a>     
+            <a href="{{url('item').'/'.$product->id}}" class="product"><img style="width: 100px;height:100px;" src="{{$product->MainImage}}"  onerror="this.onerror=null;this.src='{{ asset('product_sample_icon_picture.png') }}';" alt title></a>     
                <div class="category-details">
         <h6 style="width: 150px;text-align:left;"><a href="#">  {{$product->title}}  </a> </h6>
         <span> {{$product->MinPrice}} </span>

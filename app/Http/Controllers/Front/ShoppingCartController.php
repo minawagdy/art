@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\ProductPrice;
+use Carbon\Carbon;
+use App\Models\PromoCode;
+
 class ShoppingCartController extends Controller
 {
     public function index(){
@@ -89,27 +92,38 @@ class ShoppingCartController extends Controller
     public function applyCoupon(Request $request)
     {
         $couponCode = $request->input('coupon_code');
-        
-        // Logic to validate and apply the coupon
-        // Replace this with your coupon validation and discount calculation logic
-        // For example:
-        $promoCode=PromoCode::where('expiry_date','>=',)
-        $validCouponCodes = ['COUPON123', 'DISCOUNT456'];
-        
-        if (in_array($couponCode, $validCouponCodes)) {
-            // Coupon is valid, return discount details
-            return response()->json([
-                'success' => true,
-                'discount' => 10, // Example discount percentage or amount
-                'message' => 'Coupon applied successfully!',
-            ]);
-        } else {
-            // Coupon is invalid
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid coupon code. Please try again.',
-            ]);
-        }
+    $validCouponCodes = [];
+    $discount = 0; // Initializing discount to 0
+
+    // Retrieve valid coupon codes from the database
+    $promoCodes = PromoCode::where('expiry_date', '>=', Carbon::now()->format('Y-m-d'))->get();
+
+    foreach ($promoCodes as $promoCode) {
+        $validCouponCodes[] = $promoCode->code;
+    }
+
+    if (in_array($couponCode, $validCouponCodes)) {
+        // Coupon is valid, retrieve the discount value from the database
+        $validPromoCode = PromoCode::where('code', $couponCode)
+            ->where('expiry_date', '>=', Carbon::now()->format('Y-m-d'))
+            ->first();
+
+        // Assuming the discount value is stored in a column named 'discount'
+        $discount = $validPromoCode->value;
+
+        // Return JSON response with the discount details
+        return response()->json([
+            'success' => true,
+            'discount' => $discount,
+            'message' => 'Coupon applied successfully!',
+        ]);
+    } else {
+        // Coupon is invalid
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid coupon code. Please try again.',
+        ]);
+    }
     }
     public function remove(Request $request)
 

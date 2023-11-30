@@ -5,16 +5,18 @@
 <div class="breadcrumb">
     <div class="container">
     <h2>Gallery <span>Detail</span></h2>
+    @if (Auth::check())
     <div class="user-summary">
     <div class="account-links">
     <a href="#">My Account</a>
-    <a href="#">Checkout</a>
+    <a href="{{url('shop-checkout')}}">Checkout</a>
     </div>
     <div class="cart-count">
-    <a href="#">Shopping Bag: 0 items</a>
-    <a href="#">($0.00)</a>
+        <a  href="{{url('shopping-cart')}}">Shopping Bag: <span class="itemCount">0</span> items</a>
+        <a href="#">(<span class="totalPrice">0</span>)</a>
     </div>
     </div>
+    @endif
     </div>
     </div>
     <div class="container">
@@ -167,6 +169,8 @@ $(document).ready(function() {
             // Handle successful addition of the item to the cart
             console.log('Item added to cart with ID:', response.last_inserted_id);
             // Other actions with the response data
+            updateCartInfo(); 
+
             alert('Item added to cart.');
 
         } else {

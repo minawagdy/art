@@ -21,10 +21,10 @@ class Customer extends Authenticatable
         'admin_id', 'reset_token', 'confirm_token', 'token', 'updated_at'];
 
     // protected $appends = array('country');
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 
     //public function getProfileImg(){
     //	return url('public')."storage/profile_images/".$this->profile_img;

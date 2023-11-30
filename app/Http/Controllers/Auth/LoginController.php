@@ -46,6 +46,7 @@ class LoginController extends Controller
 
     public function clientLogin(Request $request)
     {
+        
 
         $request->validate([
             'email'   => 'required|email',
@@ -55,9 +56,9 @@ $user = Customer::where('email',$request->email)->first();
 
 
         $credentials = $request->only('email', 'password');
+       
         if (Auth::guard('web')->attempt($credentials)){
-
-            return redirect()->intended('/Account');
+            return redirect()->intended('/');
         }else{
             session() -> flash('Error', trans('Invalid credintials'));
         }

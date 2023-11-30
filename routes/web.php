@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductiveFamilyController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\PageController;
 
 use App\Http\Controllers\Vendor\VendorAuthController;
 
@@ -25,6 +26,8 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Administration\SliderController;
 
 use App\Http\Controllers\admin\SettingController;
+
+use App\Http\Controllers\Front\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +80,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::post('category/edit/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::put('/category/{id}', 'FormController@update')->name('form.update');
     Route::get('category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+   
+
+    Route::get('pages', [PageController::class, 'index'])->name('page.index');
+    Route::get('page', [PageController::class, 'create']);
+    Route::post('page', [PageController::class, 'store'])->name('page.store');
+    Route::get('page/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
+    Route::put('page/edit/{id}', [PageController::class, 'update'])->name('page.update');
+    Route::get('page/delete/{id}', [PageController::class, 'destroy'])->name('page.destroy');
 
 
     Route::get('subcategories', [SubCategoryController::class, 'index'])->name('subcategories');
@@ -280,23 +291,29 @@ Route::get('dashboard/logout', '\App\Http\Controllers\Auth\LoginController@logou
 
 Route::group(['middleware' => 'country'], function() {
 
+    Route::post('client-login',[App\Http\Controllers\Auth\LoginController::class,'clientLogin'])->name('client.login');
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/category/{id}', [IndexController::class, 'getCategory'])->name('category');
 Route::post('/wishlist',[IndexController::class, 'toggle'])->name('wishlist.toggle');
 Route::get('/allProviders',[VendorController::class, 'index'])->name('allvendors');
 Route::post('/products', [IndexController::class,'getProductsByCategory'])->name('products.byCategory');
-Route::get('/gallery', [GalleryController::class,'index'])->name('gallery.index');
+Route::get('/gallery', [GalleryController::class,'index'])->name('gallery');
 Route::get('/load-more-data', [GalleryController::class,'loadMoreData'])->name('load.more');
+// Route::get('/load-more', [GalleryController::class, 'loadMore']);
+
 Route::get('/item/{id}', [ItemController::class,'index']);
 Route::post('/addToCart', [ItemController::class,'addToCart'])->name('addToCart');
 
 Route::get('/artist/{id}', [ArtistController::class,'index']);
 Route::post('/save-comment', [ArtistController::class, 'save_comment'])->name('save-comment');
-Route::get('/shop', [ShopController::class,'index']);
+Route::get('/shop', [ShopController::class,'index'])->name('shop');
+Route::get('/search-by-category', [ShopController::class, 'searchByCategory'])->name('search.by.category');
+
 
 Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add');
 
+Route::get('about', [AboutController::class, 'index'])->name('about');
 
 
 Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);

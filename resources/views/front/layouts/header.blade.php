@@ -11,7 +11,7 @@
     <div id="header-wrapper" class="dt-sticky-menu"> 
     <div id="header" class="header">
     <div class="container menu-container">
-    <a class="logo" href="index-2.html"><img alt="Logo" src="{{asset('storage/'.$setting->logo)}}"></a>
+    <a class="logo" href="{{url('/')}}"><img alt="Logo" src="{{asset('storage/'.$setting->logo)}}"></a>
     <a href="#" class="menu-trigger">
     <span></span>
     </a>
@@ -23,33 +23,40 @@
     <span class="dt-menu-toggle-icon"></span>
     </div>
     <ul class="menu type1">
-    <li class="current_page_item menu-item-simple-parent"><a href="index-2.html">Home <span class="fa fa-home"></span></a>
-    <ul class="sub-menu">
+    <li class="{{ Request::is('/') ? 'current_page_item' : '' }} menu-item-simple-parent">
+        <a href="{{route('index')}}">Home <span class="fa fa-home"></span>
+        </a>
+    {{-- <ul class="sub-menu">
     <li class="current_page_item"><a href="http://www.wedesignthemes.com/html/redart/default">Default</a></li>
     <li><a href="http://www.wedesignthemes.com/html/redart/menu-overlay">Menu Overlay</a></li>
     <li><a href="http://www.wedesignthemes.com/html/redart/slide-bar">Slide Bar</a></li>
     <li><a href="http://www.wedesignthemes.com/html/redart/slider-over-menu">Slider Over Menu</a></li>
     </ul>
-    <a class="dt-menu-expand">+</a>
+    <a class="dt-menu-expand">+</a> --}}
     </li>
-    <li class="menu-item-simple-parent">
-    <a href="about.html">About us <span class="fa fa-user-secret"></span></a>
+    <li class="{{ Request::is('about') ? 'current_page_item' : '' }} menu-item-simple-parent">
+        <a href="{{route('about')}}">About us <span class="fa fa-user-secret"></span>
+        </a>
     </li>
-    <li class="menu-item-simple-parent"><a href="gallery.html">Gallery <span class="fa fa-camera-retro"></span></a>
-    <ul class="sub-menu">
+    <li class="{{ Request::is('gallery') ? 'current_page_item' : '' }} menu-item-simple-parent">
+        <a href="{{route('gallery')}}">Gallery <span class="fa fa-camera-retro"></span>
+        </a>
+    {{-- <ul class="sub-menu">
     <li><a href="gallery-detail.html">Gallery detail</a></li>
     <li><a href="gallery-detail-with-lhs.html">Gallery-detail-left-sidebar</a></li>
     <li><a href="gallery-detail-with-rhs.html">Gallery-detail-right-sidebar</a></li>
     </ul>
-    <a class="dt-menu-expand">+</a>
+    <a class="dt-menu-expand">+</a> --}}
     </li>
-    <li class="menu-item-simple-parent"><a href="shop.html">Shop <span class="fa fa-cart-plus"></span></a>
-    <ul class="sub-menu">
+    <li class="{{ Request::is('shop') ? 'current_page_item' : '' }} menu-item-simple-parent">
+        <a href="{{route('shop')}}">Shop <span class="fa fa-cart-plus"></span>
+        </a>
+    {{-- <ul class="sub-menu">
     <li><a href="shop-detail.html">Shop Detail</a></li>
     <li><a href="shop-cart.html">Cart Page</a></li>
     <li><a href="shop-checkout.html">Checkout Page</a></li>
     </ul>
-    <a class="dt-menu-expand">+</a>
+    <a class="dt-menu-expand">+</a> --}}
     </li>
     <li class="menu-item-simple-parent"><a href="blog.html">Blog <span class="fa fa-pencil-square-o"></span></a>
     <ul class="sub-menu">

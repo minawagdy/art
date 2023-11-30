@@ -3,16 +3,18 @@
     <div class="breadcrumb">
         <div class="container">
         <h2>Shop <span>Cart</span></h2>
+        @if (Auth::check())
         <div class="user-summary">
         <div class="account-links">
         <a href="#">My Account</a>
         <a href="#">Checkout</a>
         </div>
         <div class="cart-count">
-        <a  href="#">Shopping Bag: <span class="itemCount">0</span> items</a>
-        <a href="#">(<span class="totalPrice">0</span>)</a>
+            <a  href="#">Shopping Bag: <span class="itemCount">0</span> items</a>
+            <a href="#">(<span class="totalPrice">0</span>)</a>
         </div>
         </div>
+        @endif
         </div>
         </div>
         <section id="primary" class="content-full-width">
@@ -91,16 +93,16 @@
         
         <a href="{{url('shop')}}" class="button">Continue Shopping</a>
         </form>
-<div id="couponMessage"></div>
+{{-- <div id="couponMessage"></div> --}}
         <div class="cart-collaterals">
         <div class="coupon">
-        <h3>Coupon</h3>
+        {{-- <h3>Coupon</h3>
         <!-- <form action="#" method="post"> -->
         <form id="applyCouponForm">
         <label for="coupon_code">Enter Coupon Code</label>
         <input name="coupon_code" class="input-text" id="couponCode" value placeholder="Enter Code" />
         <input type="submit" value="Apply Coupon" name="apply_coupon" id="applyCouponBtn" class="button">
-        </form>
+        </form> --}}
         </div>
         <div class="cart_totals">
         <h3>Cart Totals</h3>
